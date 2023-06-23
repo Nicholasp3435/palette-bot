@@ -35,13 +35,13 @@ async def first_command(interaction):
 async def send(interaction, color: str):
     try:
         font = ImageFont.truetype('resources/Helvetica.ttf', 32)
-        image = colour.color_box((200,100), color)
+        image = colour.color_box((400,100), color)
         image = colour.add_text(image, color, font, 'white', 'black', 3)
         image.save('resources/temp.png')
 
-        file = discord.File('resources/temp.png', filename= color+ ".png")
+        file = discord.File('resources/temp.png', filename="color.png")
         embed = discord.Embed()
-        embed.set_image(url="attachment://" + color+ ".png")
+        embed.set_image(url="attachment://color.png")
         await interaction.response.send_message(
             file=file,embed=embed,content = "You said this color: " + color)
     except:
