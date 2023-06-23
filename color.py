@@ -1,6 +1,12 @@
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 import colorsys
 
+def default_color_box(color, number=''):
+    font = ImageFont.truetype('resources/Helvetica.ttf', 32)
+    image = color_box((400,100), color)
+    image = add_text(image, color, font, 'white', 'black', 3)
+    image.save('resources/temp' + str(number) + '.png')
+
 def color_box(size, color):
     img = Image.new('RGB', size, color)
     return img
@@ -12,6 +18,14 @@ def add_text(image, text, font, font_fg_color, font_bg_color, stroke_width):
     draw.text(((W-w)/2, (H-h)/2), text, font=font, fill=font_bg_color,
               stroke_fill = font_fg_color, stroke_width = stroke_width)
     return image
+
+def im_cat(im1, im2):
+    im1 = Image.open(im1)
+    im2 = Image.open(im2)
+    cat = Image.new('RGB', (im1.width, im1.height + im2.height))
+    cat.paste(im1, (0, 0))
+    cat.paste(im2, (0, im1.height))
+    return cat
 
 def RGB_to_HSV(color):
     r, g, b = color
@@ -33,7 +47,6 @@ def RGB_to_HEX(color):
     g = f'{g:02x}'
     b = f'{b:02x}'
     return("#" + r + g + b)
-
 
 def complement(color):
     rgb = ImageColor.getrgb(color)

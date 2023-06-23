@@ -1,15 +1,18 @@
 from PIL import Image, ImageFont
-import color
+import color as colour
 
 
 font = ImageFont.truetype('resources/Helvetica.ttf', 32)
 text = "test"
 
-image = color.color_box((200,100), 'blue')
-image = color.add_text(image, text, font, 'white', 'black', 3)
+color = input("What color? ")
+complement = colour.complement(color)
 
-print(color.complement("cyan"))
+image1 = colour.color_box((200,100), color)
+image2 = colour.color_box((200,100), complement)
+image1 = colour.add_text(image1, text, font, 'white', 'black', 3)
+image2 = colour.add_text(image2, text, font, 'white', 'black', 3)
 
-
-image.show()
+image1.show()
+image2.show()
 input()
