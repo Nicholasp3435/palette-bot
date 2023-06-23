@@ -3,7 +3,9 @@ import discord
 from discord import app_commands
 import json
 
-import color
+from PIL import ImageFont, ImageColor
+
+import color as colour
 
 # server IDs
 serverIDs = [371696021316829186,869449259139878922]
@@ -31,7 +33,19 @@ async def first_command(interaction):
     description = "Makes a box of the color specified",\
     guild=discord.Object(serverIDs[select]))
 async def send(interaction, color: str):
-    await interaction.response.send_message("You said this color: " + color)
+    try:
+        font = ImageFont.truetype('resources/Helvetica.ttf', 32)
+        image = colour.color_box((200,100), color)
+        image = colour.add_text(image, color, font, 'white', 'black', 3)
+        image.save('resources/temp.png')
+
+        file = discord.File('resources/temp.png', filename= color+ ".png")
+        embed = discord.Embed()
+        embed.set_image(url="attachment://" + color+ ".png")
+        await interaction.response.send_message(
+            file=file,embed=embed,content = "You said this color: " + color)
+    except:
+        await interaction.response.send_message("Could not find color: " + color)
 
 @client.event
 async def on_ready():
