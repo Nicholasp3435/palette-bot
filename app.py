@@ -47,6 +47,24 @@ async def send(interaction, color: str):
     except:
         await interaction.response.send_message("Could not find color: " + color)
 
+@tree.command(name = "complementary",\
+    description = "Displays the color and complementary color inputted",\
+    guild=discord.Object(serverIDs[select]))
+async def send(interaction, color: str):
+    try:
+        font = ImageFont.truetype('resources/Helvetica.ttf', 32)
+        image = colour.color_box((400,100), color)
+        image = colour.add_text(image, color, font, 'white', 'black', 3)
+        image.save('resources/temp.png')
+
+        file = discord.File('resources/temp.png', filename="color.png")
+        embed = discord.Embed()
+        embed.set_image(url="attachment://color.png")
+        await interaction.response.send_message(
+            file=file,embed=embed)
+    except:
+        await interaction.response.send_message("Could not find color: " + color)
+
 @client.event
 async def on_ready():
     await tree.sync(guild=discord.Object(id=serverIDs[select]))
