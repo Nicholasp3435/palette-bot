@@ -3,6 +3,8 @@ import discord
 from discord import app_commands
 import json
 
+import color
+
 # server IDs
 serverIDs = [371696021316829186,869449259139878922]
 select = 1
