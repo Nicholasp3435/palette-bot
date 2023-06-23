@@ -21,19 +21,17 @@ intents.message_content = True
 async def on_ready():
     print(f'We have logged in as {client.user}')
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
-
 @tree.command(name = "test",\
     description = "My first application Command",\
     guild=discord.Object(serverIDs[select]))
 async def first_command(interaction):
     await interaction.response.send_message("Hello!")
+
+@tree.command(name = "color-box",\
+    description = "Makes a box of the color specified",\
+    guild=discord.Object(serverIDs[select]))
+async def send(interaction, color: str):
+    await interaction.response.send_message("You said this color: " + color)
 
 @client.event
 async def on_ready():
