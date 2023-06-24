@@ -11,8 +11,8 @@ import color as colour
 serverIDs = [371696021316829186,869449259139878922]
 select = 1
 
-with open('info.json') as json_file:
-    info = json.load(json_file)
+with open('token.json') as json_file:
+    token = json.load(json_file)
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
@@ -67,4 +67,4 @@ async def on_ready():
     print("Ready!")
 
 def run():
-    client.run(info['token'])
+    client.run(token['token'])
