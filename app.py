@@ -61,6 +61,26 @@ async def send(interaction, color: str):
     except:
         await interaction.response.send_message("Could not find color: " + color)
 
+@tree.command(name = "triadic",\
+    description = "Displays the triadic colors of the input color",\
+    guild=discord.Object(serverIDs[select]))
+async def send(interaction, color: str):
+    try:
+        triadic = colour.triadic(color)
+        colour.default_color_box(triadic[0], 0)
+        colour.default_color_box(triadic[1], 1)
+        colour.default_color_box(triadic[2], 2)
+        colour.im_cat('resources/temp0.png', 'resources/temp1.png').save('resources/temp.png')
+        colour.im_cat('resources/temp.png', 'resources/temp2.png').save('resources/temp.png')
+
+        file = discord.File('resources/temp.png', filename="color.png")
+        embed = discord.Embed()
+        embed.set_image(url="attachment://color.png")
+        await interaction.response.send_message(
+            file=file,embed=embed)
+    except:
+        await interaction.response.send_message("Could not find color: " + color)
+
 @client.event
 async def on_ready():
     await tree.sync(guild=discord.Object(id=serverIDs[select]))

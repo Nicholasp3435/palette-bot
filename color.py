@@ -69,6 +69,6 @@ def triadic(color):
     tri2RGB = HSV_to_RGB(tri2HSV)
     hex1 = RGB_to_HEX(tri1RGB)
     hex2 = RGB_to_HEX(tri2RGB)
-    return (hex1, hex2)
+    return (hex1, color, hex2)
     
     
