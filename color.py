@@ -29,14 +29,16 @@ def im_cat(im1, im2):
 
 def RGB_to_HSV(color):
     r, g, b = color
-    #Takes 255 values and normalizes
     hsv = colorsys.rgb_to_hsv(r/255, g/255, b/255)
-    #Return is normal
-    return tuple(round(component, 2) for component in hsv)
+    h, s, v = hsv
+    h *= 360
+    s *= 100
+    v *= 100
+    return (h, s, v)
 
 def HSV_to_RGB(color):
     h, s, v = color
-    rgb = colorsys.hsv_to_rgb(h, s, v)
+    rgb = colorsys.hsv_to_rgb(h/360, s/100, v/100)
     r, g, b, = rgb
     rgb = (int(r*255), int(g*255), int(b*255))
     return rgb
@@ -52,7 +54,7 @@ def complement(color):
     rgb = ImageColor.getrgb(color)
     hsv = RGB_to_HSV(rgb)
     h, s, v = hsv
-    comHSV = ((0.5+h)%1, s, v)
+    comHSV = ((180+h)%360, s, v)
     comRGB = HSV_to_RGB(comHSV)
     hex = RGB_to_HEX(comRGB)
     return(hex)
