@@ -58,3 +58,17 @@ def complement(color):
     comRGB = HSV_to_RGB(comHSV)
     hex = RGB_to_HEX(comRGB)
     return(hex)
+
+def triadic(color):
+    rgb = ImageColor.getrgb(color)
+    hsv = RGB_to_HSV(rgb)
+    h, s, v = hsv
+    tri1HSV = ((h + 120)%360, s, v)
+    tri2HSV = ((h - 120)%360, s, v)
+    tri1RGB = HSV_to_RGB(tri1HSV)
+    tri2RGB = HSV_to_RGB(tri2HSV)
+    hex1 = RGB_to_HEX(tri1RGB)
+    hex2 = RGB_to_HEX(tri2RGB)
+    return (hex1, hex2)
+    
+    
